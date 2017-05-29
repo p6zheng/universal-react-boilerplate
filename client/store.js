@@ -20,6 +20,6 @@ export const configureStore = () => {
   // Create store
   return createStore(
     reducer,
-    applyMiddleware(...middlewares),
+    applyMiddleware(...middlewares)
   );
 };
