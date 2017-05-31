@@ -6,15 +6,15 @@ export default {
     secret: process.env.SESSION_SECRET
   },
   server: {
-    host: process.env.SERVER_HOST || 'localhost',
-    port: process.env.PORT || process.env.SERVER_PORT
+    host: process.env.SERVER_HOST,
+    port: process.env.SERVER_PORT || 3000
   },
   mongo: {
-    url: 'mongodb://localhost:27017/ProdDB'
+    url: 'mongodb://localhost:27017/TestDB'
   },
   log: {
     console: 'error',
     file: 'error',
-    color: false
+    color: true
   }
 };

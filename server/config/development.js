@@ -10,7 +10,7 @@ export default {
     port: process.env.SERVER_PORT || 3000
   },
   mongo: {
-    url: 'mongodb://localhost:27017/authentication_DEV'
+    url: 'mongodb://localhost:27017/DevDB'
   },
   log: {
     console: 'debug',
