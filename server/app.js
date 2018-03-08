@@ -1,6 +1,5 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import path from 'path';
@@ -51,19 +50,6 @@ import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 
 
-// Set native promises as mongoose promise
-mongoose.Promise = global.Promise;
-
-// Connect to mongodb
-if(process.env.NODE_ENV !== 'test') mongoose.connect(config.mongo.url);
-mongoose.connection.on('connected', () => {
-  logger.info('MongoDB connection established!');
-});
-mongoose.connection.on('error', () => {
-  logger.error('MongoDB connection error. Please make sure MongoDB is running.');
-  process.exit();
-});
-
 // Express configuration
 app.set('view engine', 'ejs');
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms',
@@ -78,19 +64,6 @@ app.use((req, res, next) => {
   if (cluster.isWorker) logger.info(`Worker ${cluster.worker.id} received request`);
   next();
 });
-
-// Setup Cookie and Session
-const MongoStore = require('connect-mongo')(session);
-app.use(cookieParser(config.cookie.secret));
-app.use(session({
-  secret: config.session.secret,
-  resave: true,
-  saveUninitialized: true,
-  store: new MongoStore({
-    url: config.mongo.url,
-    autoReconnect: true
-  })
-}));
 
 
 // Server Side Rendering based on routes matched by React-router v4
