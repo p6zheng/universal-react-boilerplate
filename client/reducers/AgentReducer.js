@@ -5,10 +5,7 @@ const initialState = {};
 const agents = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_AGENTS_SUCCESS:
-      return {
-        ...state,
-        agents: action.agents
-      };
+      return action.agents;
     default:
       return state;
   }
