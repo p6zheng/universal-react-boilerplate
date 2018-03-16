@@ -6,6 +6,8 @@ import { configureStore } from './store';
 import * as actionTypes from './constants/actionTypes';
 import Root from './Root';
 
+import { Alert } from 'ad-react-components';
+
 const store = configureStore();
 
 const { message } = window.initialData;

@@ -29,10 +29,10 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /(node_modules)/,
+        exclude: /.*node_modules((?!ad-react-components).)*$/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'react', 'stage-1'],
+          presets: ['env', 'react', 'stage-1'],
           plugins: ['syntax-dynamic-import']
         }
       },

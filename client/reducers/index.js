@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import agents, * as agentReducer from './AgentReducer';
+import events, * as eventReducer from './EventReducer';
 
 const rootReducer = combineReducers({
-  agents
+  agents,
+  events
 });
 
 export default rootReducer;
@@ -11,3 +13,4 @@ export default rootReducer;
 
 // Secret Message Reducer
 export const getAgents = state => agentReducer.getAgents(state.agents);
+export const getEvents = state => eventReducer.getEvents(state.events);
