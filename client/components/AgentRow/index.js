@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as actions from '../../actions/UserActions';
 
-import { TableCell, TableRow } from 'material-ui/Table';
 import {connect} from 'react-redux';
 import * as reducers from '../../reducers';
 
@@ -18,12 +17,12 @@ class AgentRow extends Component {
     const {id, service} = this.props;
     return service.map(
       ({status, type, message}) => (
-        <TableRow key={id + type} onClick={() => this.onClickHandler(id, type).bind(this)}>
-          <TableCell>{id}</TableCell>
-          <TableCell>{type}</TableCell>
-          <TableCell>{status}</TableCell>
-          <TableCell>{message}</TableCell>
-        </TableRow>
+        <tr key={id + type} onClick={() => this.onClickHandler(id, type).bind(this)}>
+          <td>{id}</td>
+          <td>{type}</td>
+          <td>{status}</td>
+          <td>{message}</td>
+        </tr>
       )
     );
   }

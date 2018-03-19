@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { TableBody, TableHead, TableRow, TableCell } from 'material-ui/Table';
-import Paper from 'material-ui/Paper';
+import { TableHeader, Table } from '../Table';
 
 
 class EventsTable extends Component {
@@ -11,13 +10,13 @@ class EventsTable extends Component {
     if (events != null)
       return events.map(
         e => (
-          <TableRow>
-            <TableCell>{e.id}</TableCell>
-            <TableCell>{e.resource_type}</TableCell>
-            <TableCell>{e.timestamp}</TableCell>
-            <TableCell>{e.resource_action}</TableCell>
-            <TableCell>{e.payload}</TableCell>
-          </TableRow>
+          <tr>
+            <td>{e.id}</td>
+            <td>{e.resource_type}</td>
+            <td>{e.timestamp}</td>
+            <td>{e.resource_action}</td>
+            <td>{e.payload}</td>
+          </tr>
         )
       );
   }
@@ -25,20 +24,16 @@ class EventsTable extends Component {
   render() {
     const { events } = this.props;
     return (
-      <Paper>
-        <TableHead>
-          <TableRow>
-            <TableCell>Agent ID</TableCell>
-            <TableCell>Type</TableCell>
-            <TableCell>Create Time</TableCell>
-            <TableCell>Action</TableCell>
-            <TableCell>payload</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+      <Table>
+        <TableHeader>Agent ID</TableHeader>
+        <TableHeader>Type</TableHeader>
+        <TableHeader>Create Time</TableHeader>
+        <TableHeader>Action</TableHeader>
+        <TableHeader>payload</TableHeader>
+        <tbody>
           {this.renderAgentRows(events)}
-        </TableBody>
-      </Paper>
+        </tbody>
+      </Table>
     );
   }
 }

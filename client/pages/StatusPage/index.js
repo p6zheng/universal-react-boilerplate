@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import AgentTable from '../../components/AgentTable';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import * as actions from '../../actions/UserActions';
 import * as reducers from '../../reducers';
 
@@ -10,11 +10,7 @@ import * as reducers from '../../reducers';
 class StatusPage extends Component {
 
   render() {
-    return (
-      <div>
-        <AgentTable />
-      </div>
-    );
+    return <AgentTable />;
   }
 }
 

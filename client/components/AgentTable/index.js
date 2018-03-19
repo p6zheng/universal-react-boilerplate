@@ -1,18 +1,37 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { TableBody, TableHead, TableRow, TableCell } from 'material-ui/Table';
-import Paper from 'material-ui/Paper';
+import { TableHeader, Table } from '../Table';
 
-import AgentRow from '../AgentRow';
 import {connect} from 'react-redux';
 import * as actions from '../../actions/UserActions';
 import * as reducers from '../../reducers';
+import {fetchAgents} from '../../actions/UserActions';
+
+import AgentRow from '../AgentRow';
 
 class AgentTable extends Component {
 
   componentDidMount() {
     this.props.fetchAgents();
+  }
+
+  onClickHandler() {
+    // /this.props.fetchEvents(id, type);
+    //this.props.history.push(`/users/${id}/type/${type}`);
+  }
+
+  flattenAgentRows(agents) {
+    return agents
+      .reduce((acc, agent) =>
+        acc.concat(agent.service.map(row =>
+          ({
+            agent_id: agent.id,
+            type: row.type,
+            status: row.status,
+            message: row.message
+          })
+        )), []);
   }
 
   renderAgentRows(agents) {
@@ -28,26 +47,23 @@ class AgentTable extends Component {
 
   render() {
     const { agents } = this.props;
+
     return (
-      <Paper>
-        <TableHead>
-          <TableRow>
-            <TableCell>Agent ID</TableCell>
-            <TableCell>Type</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Message</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+      <Table
+        bordered>
+        <TableHeader name="agent_id">Agent ID</TableHeader>
+        <TableHeader name="type">Type</TableHeader>
+        <TableHeader name="status">Status</TableHeader>
+        <TableHeader name="message">Message</TableHeader>
+        <tbody>
           {this.renderAgentRows(agents)}
-        </TableBody>
-      </Paper>
+        </tbody>
+      </Table>
     );
   }
 }
 
 AgentTable.propTypes = {
-  classes: PropTypes.object.isRequired,
   agents: PropTypes.array.isRequired,
   fetchAgents: PropTypes.func
 };
