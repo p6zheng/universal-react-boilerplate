@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as actions from '../../actions/UserActions';
-
+import { TableHeader } from 'ad-react-components';
 import {connect} from 'react-redux';
 import * as reducers from '../../reducers';
 
 import { withRouter } from 'react-router-dom';
+
 
 class AgentRow extends Component {
   onClickHandler(id ,type) {
@@ -14,24 +15,19 @@ class AgentRow extends Component {
   }
 
   render() {
-    const {id, service} = this.props;
-    return service.map(
-      ({status, type, message}) => (
-        <tr key={id + type} onClick={() => this.onClickHandler(id, type).bind(this)}>
-          <td>{id}</td>
-          <td>{type}</td>
-          <td>{status}</td>
-          <td>{message}</td>
-        </tr>
-      )
+    const { name, children } = this.props;
+    return (
+      <TableHeader
+        name={name}
+        cellFormatter={(id, type) => this.onClickHandler().apply(this, id, type)}>
+        {children}
+      </TableHeader>
     );
   }
 }
 
 AgentRow.propTypes = {
-  id: PropTypes.string,
-  service: PropTypes.array,
-  fetchEvents: PropTypes.func
+  name: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { TableHeader, Table } from '../Table';
+import { TableHeader, Table } from 'ad-react-components';
 
 
 class EventsTable extends Component {

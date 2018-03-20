@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { TableHeader, ApiTable } from '../Table';
+import { ApiTable } from 'ad-react-components';
 
 import {connect} from 'react-redux';
 import * as actions from '../../actions/UserActions';
@@ -28,36 +28,18 @@ class AgentTable extends Component {
         )), []);
   }
 
-  renderAgentRows(agents) {
-    return agents.map(
-      ({id, service}) =>
-        <AgentRow
-          key={id}
-          id={id}
-          service={service}
-        />
-    );
-  }
-
-  onRowClick({id, type}) {
-    this.props.fetchEvents(id, type);
-    this.props.history.push(`/users/${id}/type/${type}`);
-  }
-
   render() {
     const { agents } = this.props;
 
     return (
       <ApiTable
         bordered
-        onRowClick={this.onRowClick}>
-        <TableHeader name="agent_id">Agent ID</TableHeader>
-        <TableHeader name="type">Type</TableHeader>
-        <TableHeader name="status">Status</TableHeader>
-        <TableHeader name="message">Message</TableHeader>
-        <tbody>
-          {this.renderAgentRows(agents)}
-        </tbody>
+        rows={this.flattenAgentRows(agents)}
+        onTableUpdate={() => {}}>
+        <AgentRow name="agent_id">Agent ID</AgentRow>
+        <AgentRow name="type">Type</AgentRow>
+        <AgentRow name="status">Status</AgentRow>
+        <AgentRow name="message">Message</AgentRow>
       </ApiTable>
     );
   }
