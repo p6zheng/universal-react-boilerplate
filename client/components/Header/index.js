@@ -4,7 +4,7 @@ import { SecondaryNavigation, SecondaryNavItem, SecondaryNavLink } from 'ad-reac
 class Header extends Component {
   render() {
     return (
-      <SecondaryNavigation title="nav">
+      <SecondaryNavigation title="Test">
         <SecondaryNavItem>
           <SecondaryNavLink active>
             Home

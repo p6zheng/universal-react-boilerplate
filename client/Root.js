@@ -1,4 +1,3 @@
-import './main.scss';
 import React, { Component } from 'react';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 

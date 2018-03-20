@@ -15,7 +15,8 @@ module.exports = {
       'react-router',
       'react-router-dom',
       'react-redux',
-      'redux-thunk'
+      'redux-thunk',
+      'styled-components'
     ]
   },
 
@@ -86,6 +87,7 @@ module.exports = {
     new ExtractTextPlugin('style.css'),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
+      minChunks: 'Infinity'
     }),
     new webpack.DefinePlugin({
       'process.env': {
