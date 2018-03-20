@@ -1,39 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { TableHeader, Table } from 'ad-react-components';
+import { TableHeader, ApiTable } from 'ad-react-components';
 
 
 class EventsTable extends Component {
 
-  renderAgentRows(events) {
-    if (events != null)
-      return events.map(
-        e => (
-          <tr>
-            <td>{e.id}</td>
-            <td>{e.resource_type}</td>
-            <td>{e.timestamp}</td>
-            <td>{e.resource_action}</td>
-            <td>{e.payload}</td>
-          </tr>
-        )
-      );
-  }
-
   render() {
     const { events } = this.props;
     return (
-      <Table>
-        <TableHeader>Agent ID</TableHeader>
-        <TableHeader>Type</TableHeader>
-        <TableHeader>Create Time</TableHeader>
-        <TableHeader>Action</TableHeader>
-        <TableHeader>payload</TableHeader>
-        <tbody>
-          {this.renderAgentRows(events)}
-        </tbody>
-      </Table>
+      <ApiTable
+        rows={events}
+        onTableUpdate={() => {}}>
+        <TableHeader name="id">Agent ID</TableHeader>
+        <TableHeader name="timestamp">Type</TableHeader>
+        <TableHeader name="resource_type">Create Time</TableHeader>
+        <TableHeader name="resource_action">Action</TableHeader>
+        <TableHeader name="payload">payload</TableHeader>
+      </ApiTable>
     );
   }
 }

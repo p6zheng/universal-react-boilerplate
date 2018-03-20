@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-import { ApiTable } from 'ad-react-components';
-
 import {connect} from 'react-redux';
 import * as actions from '../../actions/UserActions';
 import * as reducers from '../../reducers';
+import {withRouter} from 'react-router-dom';
 
-import AgentRow from '../AgentRow';
+import { ApiTable, TableHeader } from 'ad-react-components';
 
 class AgentTable extends Component {
 
@@ -28,6 +26,19 @@ class AgentTable extends Component {
         )), []);
   }
 
+  onClickHandler(id, type) {
+    this.props.fetchEvents(id, type);
+    this.props.history.push(`/users/${id}/type/${type}`);
+  }
+
+  createRow(content, row, idx) {
+    return (
+      <div onClick={this.onClickHandler.bind(this, row.agent_id, row.type)}>
+        {content}
+      </div>
+    );
+  }
+
   render() {
     const { agents } = this.props;
 
@@ -36,10 +47,10 @@ class AgentTable extends Component {
         bordered
         rows={this.flattenAgentRows(agents)}
         onTableUpdate={() => {}}>
-        <AgentRow name="agent_id">Agent ID</AgentRow>
-        <AgentRow name="type">Type</AgentRow>
-        <AgentRow name="status">Status</AgentRow>
-        <AgentRow name="message">Message</AgentRow>
+        <TableHeader name="agent_id" cellFormatter={this.createRow.bind(this)}>Agent ID</TableHeader>
+        <TableHeader name="type" cellFormatter={this.createRow.bind(this)}>Type</TableHeader>
+        <TableHeader name="status" cellFormatter={this.createRow.bind(this)}>Status</TableHeader>
+        <TableHeader name="message" cellFormatter={this.createRow.bind(this)}>Message</TableHeader>
       </ApiTable>
     );
   }
@@ -54,5 +65,5 @@ const mapStateToProps = (state) => ({
   agents: reducers.getAgents(state)
 });
 
-export default connect(mapStateToProps, actions)(AgentTable);
+export default connect(mapStateToProps, actions)(withRouter(AgentTable));
 
