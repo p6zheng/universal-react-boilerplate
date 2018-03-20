@@ -2,27 +2,52 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Container } from '../Container';
+import Placeholder from '../Placeholder';
+import {Container} from '../Container';
+
+const emptyTablePlaceholder = title => (<Placeholder icon="list" condensed title={title}/>);
 
 const propTypes = {
   bordered: PropTypes.bool,
+  onRowClick: PropTypes.func,
   className: PropTypes.string,
+  rowKeyColumn: PropTypes.string,
+  rows: PropTypes.arrayOf(PropTypes.object).isRequired,
+  placeholder: PropTypes.node,
   rowHeading: PropTypes.bool,
   columnHeading: PropTypes.bool,
 };
 
 const defaultProps = {
   className: '',
+  placeholder: emptyTablePlaceholder(),
   bordered: false,
+  rowKeyColumn: undefined,
   rowHeading: false,
   columnHeading: false,
 };
 
 // eslint-disable-next-line react/prop-types
-const TableContainer = ({ children, bordered, className, rowHeading, columnHeading, ...otherProps }) => (
+const Cell = ({column, row, idx}) => (
+  <td key={column.name}>
+    {column.cellFormatter ? column.cellFormatter(row[column.name], row, idx) : row[column.name]}
+  </td>
+);
+
+// eslint-disable-next-line react/prop-types
+const TableContainer = ({children, bordered, className, rowHeading, columnHeading, ...otherProps}) => (
   bordered
     ? <Container className={className} {...otherProps}>{children}</Container>
     : <div className={className} {...otherProps}>{children}</div>
+);
+
+// eslint-disable-next-line react/prop-types
+const EmptyRow = ({headers, placeholder}) => (
+  <tr>
+    <td colSpan={headers.length}>
+      {typeof placeholder === 'string' ? emptyTablePlaceholder(placeholder) : placeholder}
+    </td>
+  </tr>
 );
 
 // Table cell styles are cascaded. Didn't want to have a class attribute
@@ -77,25 +102,35 @@ const byDisplayName = name => (
   x => (x.type ? x.type.displayName === name : false)
 );
 
-const byType = type => x => x.type === type;
-
 const Table = (props) => {
-  const { bordered, className, children, ...otherProps } = props;
+  const {bordered, className, children, rowKeyColumn, rows, placeholder, ...otherProps} = props;
   const childrenArray = React.Children.toArray(children);
   const headers = childrenArray.filter(byDisplayName('TableHeader'));
   const footer = childrenArray.find(byDisplayName('TableFooter'));
-  const rows = childrenArray.find(byType('tbody'));
+  const filters = childrenArray.find(byDisplayName('TableFilters'));
+  const empty = rows.length === 0;
+  const { onRowClick } = otherProps;
 
   return (
     <TableContainer className={className} bordered={bordered} {...otherProps}>
+      {filters}
       <TableWrapper>
-        <table style={{ borderCollapse: 'collapse', borderSpacing: 0, width: '100%' }}>
+        <table style={{borderCollapse: 'collapse', borderSpacing: 0, width: '100%'}}>
           <thead>
             <tr>
               {headers}
             </tr>
           </thead>
-          {rows}
+          <tbody>{empty
+            ? <EmptyRow headers={headers} placeholder={placeholder}/>
+            : rows.map((row, idx) => (
+              <tr key={row[rowKeyColumn] || row.key || idx} className={row.className} onClick={onRowClick.apply(this, row)}>
+                {React.Children.map(headers,
+                  child => <Cell column={child.props} row={row} idx={idx}/>
+                )}
+              </tr>
+            ))
+          }</tbody>
         </table>
       </TableWrapper>
       {footer}

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { TableHeader, Table } from '../Table';
+import { TableHeader, ApiTable } from '../Table';
 
 import {connect} from 'react-redux';
 import * as actions from '../../actions/UserActions';
 import * as reducers from '../../reducers';
-import {fetchAgents} from '../../actions/UserActions';
 
 import AgentRow from '../AgentRow';
 
@@ -14,11 +13,6 @@ class AgentTable extends Component {
 
   componentDidMount() {
     this.props.fetchAgents();
-  }
-
-  onClickHandler() {
-    // /this.props.fetchEvents(id, type);
-    //this.props.history.push(`/users/${id}/type/${type}`);
   }
 
   flattenAgentRows(agents) {
@@ -45,12 +39,18 @@ class AgentTable extends Component {
     );
   }
 
+  onRowClick({id, type}) {
+    this.props.fetchEvents(id, type);
+    this.props.history.push(`/users/${id}/type/${type}`);
+  }
+
   render() {
     const { agents } = this.props;
 
     return (
-      <Table
-        bordered>
+      <ApiTable
+        bordered
+        onRowClick={this.onRowClick}>
         <TableHeader name="agent_id">Agent ID</TableHeader>
         <TableHeader name="type">Type</TableHeader>
         <TableHeader name="status">Status</TableHeader>
@@ -58,7 +58,7 @@ class AgentTable extends Component {
         <tbody>
           {this.renderAgentRows(agents)}
         </tbody>
-      </Table>
+      </ApiTable>
     );
   }
 }
