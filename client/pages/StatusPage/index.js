@@ -6,11 +6,18 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/UserActions';
 import * as reducers from '../../reducers';
 
+import SideNav from '../../components/SideNav';
+
 
 class StatusPage extends Component {
 
   render() {
-    return <AgentTable />;
+    return (
+      <div>
+        <SideNav />
+        <AgentTable/>
+      </div>
+    );
   }
 }
 

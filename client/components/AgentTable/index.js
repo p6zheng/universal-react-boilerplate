@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import * as actions from '../../actions/UserActions';
 import * as reducers from '../../reducers';
-import {withRouter} from 'react-router-dom';
 
 import { ApiTable, TableHeader } from 'ad-react-components';
 
@@ -31,7 +31,7 @@ class AgentTable extends Component {
     this.props.history.push(`/users/${id}/type/${type}`);
   }
 
-  createRow(content, row, idx) {
+  createCell(content, row, idx) {
     return (
       <div onClick={this.onClickHandler.bind(this, row.agent_id, row.type)}>
         {content}
@@ -46,11 +46,12 @@ class AgentTable extends Component {
       <ApiTable
         bordered
         rows={this.flattenAgentRows(agents)}
-        onTableUpdate={() => {}}>
-        <TableHeader name="agent_id" cellFormatter={this.createRow.bind(this)}>Agent ID</TableHeader>
-        <TableHeader name="type" cellFormatter={this.createRow.bind(this)}>Type</TableHeader>
-        <TableHeader name="status" cellFormatter={this.createRow.bind(this)}>Status</TableHeader>
-        <TableHeader name="message" cellFormatter={this.createRow.bind(this)}>Message</TableHeader>
+        onTableUpdate={() => {}}
+        pagination={{currentPage: 1, nbPages: 4}}>
+        <TableHeader name="agent_id" cellFormatter={this.createCell.bind(this)}>Agent ID</TableHeader>
+        <TableHeader name="type" cellFormatter={this.createCell.bind(this)}>Type</TableHeader>
+        <TableHeader name="status" cellFormatter={this.createCell.bind(this)}>Status</TableHeader>
+        <TableHeader name="message" cellFormatter={this.createCell.bind(this)}>Message</TableHeader>
       </ApiTable>
     );
   }

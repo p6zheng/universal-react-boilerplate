@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-import EventsTable from '../../components/EventsTable';
 import {connect} from 'react-redux';
 import * as actions from '../../actions/UserActions';
 import * as reducers from '../../reducers';
 
+import EventsTable from '../../components/EventsTable';
+import SideNav from '../../components/SideNav';
 
 
 class EventsPage extends Component {
@@ -13,6 +13,7 @@ class EventsPage extends Component {
   render() {
     return (
       <div>
+        <SideNav/>
         <EventsTable events={this.props.events}/>
       </div>
     );

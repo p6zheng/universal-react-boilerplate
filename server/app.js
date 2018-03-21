@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'production') {
   const webconfig = require('../webpack.config.dev.js');
   app.use(webpackMiddleware(webpack(webconfig), {
     publicPath: '/',
-    serverSideRender: true,
+    serverSideRender: false,
     stats: {
       colors: true,
       chunks: false,
@@ -67,43 +67,8 @@ app.use((req, res, next) => {
 
 
 // Server Side Rendering based on routes matched by React-router v4
-app.use((req, res, next) => {
-  const message = 'This message is passed from the backend';
-
-  const store = configureStore();
-
-  store.dispatch({
-    type: actionTypes.DISPLAY_MESSAGE,
-    message
-  });
-
-  const context = {};
-
-  let markup = ReactDOMServer.renderToString(
-    <Provider store={store}>
-      <StaticRouter location={req.url} context={context}>
-        <Root />
-      </StaticRouter>
-    </Provider>
-  );
-
-
-  if (context.url) {
-    res.writeHead(301, {
-      Location: context.url
-    });
-    res.end();
-  } else{
-    if (context.missed) {
-      next();
-    }
-    res.render('index', {
-      initialMockup: markup,
-      initialData: {
-        message
-      }
-    });
-  }
+app.use((req, res) => {
+  res.render('index');
 });
 
 export default app;

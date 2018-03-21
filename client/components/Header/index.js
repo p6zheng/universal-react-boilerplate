@@ -1,41 +1,29 @@
 import React, { Component } from 'react';
-import { SecondaryNavigation, SecondaryNavItem, SecondaryNavLink } from 'ad-react-components';
 
-class Header extends Component {
-  render() {
-    return (
-      <SecondaryNavigation title="Test">
-        <SecondaryNavItem>
-          <SecondaryNavLink active>
-            Home
-          </SecondaryNavLink>
-        </SecondaryNavItem>
-        <SecondaryNavItem>
-          <SecondaryNavLink >
-            Users
-          </SecondaryNavLink>
-        </SecondaryNavItem>
-        <SecondaryNavItem>
-          <SecondaryNavLink>
-            Search
-          </SecondaryNavLink>
-        </SecondaryNavItem>
-        <SecondaryNavItem>
-          <SecondaryNavLink>
-            Admin
-          </SecondaryNavLink>
-        </SecondaryNavItem>
-        <SecondaryNavItem>
-          <SecondaryNavLink>
-            System
-          </SecondaryNavLink>
-        </SecondaryNavItem>
-      </SecondaryNavigation>
-    );
-  }
-}
+import UniversalHeader from 'universal-header';
 
-Header.propTypes = {
-};
+var universalHeader =  new UniversalHeader();
 
-export default Header;
+universalHeader.configure({
+  widgets: ['Header'],
+  userUUID: '123123',
+  static: true,
+  staticData: {
+    CurrentUser: {
+      uuid: "213123123",
+    },
+    UserInfo: {
+      given_name: "Pengfei"
+    },
+    CHANNEL_SETTINGS: {}
+  },
+  marketUrl: 'http://marketplace.appdirect.com'
+});
+
+universalHeader.configure({
+  renderTo: '#universalHeader',
+}, 'header');
+
+universalHeader.init();
+
+module.exports = universalHeader;

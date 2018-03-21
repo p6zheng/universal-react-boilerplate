@@ -29,6 +29,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(html|txt)$/,
+        loader: 'raw-loader',
+      },
+      {
         test: /\.js$/,
         exclude: /.*node_modules((?!ad-react-components).)*$/,
         loader: 'babel-loader',
