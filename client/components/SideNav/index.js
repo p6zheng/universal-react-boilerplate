@@ -7,45 +7,34 @@ class Side extends Component {
       <div className="sidebar">
         <SideNav>
           <NavHeader>
-            Support
+            Agent Status
           </NavHeader>
-          <NavItem>
-            <a href="#/superuser/support#network-catalog" className="custom-url-classname">
-              Network Catalog
-            </a>
-          </NavItem>
-          <NavItem>
-            <a href="#/superuser/support#import-manager" className="custom-url-classname">
-              Import Catalog
-            </a>
-          </NavItem>
           <NavItem selected>
-            <a href="#/superuser/support#express-catalog" className="custom-url-classname">
-              Express Catalog
-            </a>
+            All
+          </NavItem>
+          <NavItem>
+            Active
+          </NavItem>
+          <NavItem>
+            Diactivated
+          </NavItem>
+          <NavItem>
+            Cancelled
           </NavItem>
           <NavHeader>
-            Marketplace Management
+            Agent Type
           </NavHeader>
           <NavItem>
-            <a href="#/superuser/support/marketplace/ms-csp" className="custom-url-classname">
-              Microsoft CSP
-            </a>
+            All
           </NavItem>
           <NavItem>
-            <a href="#/superuser/support/marketplace/ms-csp" className="custom-url-classname">
-              Microsoft CSP
-            </a>
+            lmi
           </NavItem>
           <NavItem>
-            <a href="#/superuser/support/marketplace/ms-csp" className="custom-url-classname">
-              Microsoft CSP
-            </a>
+            mp
           </NavItem>
           <NavItem>
-            <a href="#/superuser/support/marketplace/ms-csp" className="custom-url-classname">
-              Microsoft CSP
-            </a>
+            abc
           </NavItem>
         </SideNav>
       </div>

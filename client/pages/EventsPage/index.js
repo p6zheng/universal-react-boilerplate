@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import * as actions from '../../actions/UserActions';
 import * as reducers from '../../reducers';
 
@@ -14,7 +14,10 @@ class EventsPage extends Component {
     return (
       <div className="main">
         <SideNav/>
-        <EventsTable events={this.props.events}/>
+        <EventsTable
+          events={this.props.events}
+          page={{currentPage: 1, nbPages: 3}}
+        />
       </div>
     );
   }
@@ -23,7 +26,6 @@ class EventsPage extends Component {
 EventsPage.propTypes = {
   events: PropTypes.array.isRequired
 };
-
 
 const mapStateToProps = (state) => ({
   events: reducers.getEvents(state)
