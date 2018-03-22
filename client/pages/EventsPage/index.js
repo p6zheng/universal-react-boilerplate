@@ -12,7 +12,7 @@ class EventsPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="main">
         <SideNav/>
         <EventsTable events={this.props.events}/>
       </div>

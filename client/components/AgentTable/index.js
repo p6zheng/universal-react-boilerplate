@@ -43,16 +43,18 @@ class AgentTable extends Component {
     const { agents } = this.props;
 
     return (
-      <ApiTable
-        bordered
-        rows={this.flattenAgentRows(agents)}
-        onTableUpdate={() => {}}
-        pagination={{currentPage: 1, nbPages: 4}}>
-        <TableHeader name="agent_id" cellFormatter={this.createCell.bind(this)}>Agent ID</TableHeader>
-        <TableHeader name="type" cellFormatter={this.createCell.bind(this)}>Type</TableHeader>
-        <TableHeader name="status" cellFormatter={this.createCell.bind(this)}>Status</TableHeader>
-        <TableHeader name="message" cellFormatter={this.createCell.bind(this)}>Message</TableHeader>
-      </ApiTable>
+      <div className="table" >
+        <ApiTable
+          bordered
+          rows={this.flattenAgentRows(agents)}
+          onTableUpdate={() => {}}
+          pagination={{currentPage: 1, nbPages: 4}}>
+          <TableHeader name="agent_id" cellFormatter={this.createCell.bind(this)}>Agent ID</TableHeader>
+          <TableHeader name="type" cellFormatter={this.createCell.bind(this)}>Type</TableHeader>
+          <TableHeader name="status" cellFormatter={this.createCell.bind(this)}>Status</TableHeader>
+          <TableHeader name="message" cellFormatter={this.createCell.bind(this)}>Message</TableHeader>
+        </ApiTable>
+      </div>
     );
   }
 }

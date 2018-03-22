@@ -9,15 +9,17 @@ class EventsTable extends Component {
   render() {
     const { events } = this.props;
     return (
-      <ApiTable
-        rows={events}
-        onTableUpdate={() => {}}>
-        <TableHeader name="id">Agent ID</TableHeader>
-        <TableHeader name="timestamp">Type</TableHeader>
-        <TableHeader name="resource_type">Create Time</TableHeader>
-        <TableHeader name="resource_action">Action</TableHeader>
-        <TableHeader name="payload">payload</TableHeader>
-      </ApiTable>
+      <div className="table" >
+        <ApiTable
+          rows={events}
+          onTableUpdate={() => {}}>
+          <TableHeader name="id">Agent ID</TableHeader>
+          <TableHeader name="timestamp">Type</TableHeader>
+          <TableHeader name="resource_type">Create Time</TableHeader>
+          <TableHeader name="resource_action">Action</TableHeader>
+          <TableHeader name="payload">payload</TableHeader>
+        </ApiTable>
+      </div>
     );
   }
 }

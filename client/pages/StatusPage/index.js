@@ -13,9 +13,9 @@ class StatusPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="main">
         <SideNav />
-        <AgentTable/>
+        <AgentTable />
       </div>
     );
   }
