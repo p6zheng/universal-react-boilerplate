@@ -14,13 +14,13 @@ class AgentTable extends Component {
   }
 
   render() {
-    const {rows, page} = this.props;
+    const {rows, page, onPageChange} = this.props;
     return (
       <div className="content" >
         <ApiTable
           bordered
           rows={rows}
-          onTableUpdate={() => {}}
+          onTableUpdate={onPageChange}
           pagination={page}>
           <TableHeader name="agent_id" cellFormatter={this.createCell.bind(this)}>Agent ID</TableHeader>
           <TableHeader name="type" cellFormatter={this.createCell.bind(this)}>Type</TableHeader>
@@ -36,7 +36,8 @@ class AgentTable extends Component {
 AgentTable.propTypes = {
   onRowClick: PropTypes.func.isRequired,
   rows: PropTypes.array.isRequired,
-  page: PropTypes.object.isRequired
+  page: PropTypes.object.isRequired,
+  onPageChange: PropTypes.func.isRequired
 };
 
 export default AgentTable;

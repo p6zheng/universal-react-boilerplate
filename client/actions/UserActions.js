@@ -5,7 +5,7 @@ export const fetchAgents = () => (dispatch) => {
 
   dispatch({type: actionTypes.FETCH_AGENTS_REQUEST});
   
-  api('users/status').then(
+  return api('users/status').then(
     res => {
       dispatch({
         type: actionTypes.FETCH_AGENTS_SUCCESS,

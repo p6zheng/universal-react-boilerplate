@@ -11,8 +11,24 @@ import { withRouter } from 'react-router-dom';
 
 class StatusPage extends Component {
 
+  constructor() {
+    super();
+    this.state = {
+      page: {
+        currentPage: 1,
+        ngPage: 1
+      },
+      rows: []
+    };
+  }
+
   componentDidMount() {
-    if (this.props.agents.length === 0) this.props.fetchAgents();
+    if (this.state.rows.length === 0) {
+      this.props.fetchAgents()
+        .then(() => {
+          this.initializeRows(1);
+        });
+    }
   }
 
   onRowClick(id, type) {
@@ -33,14 +49,28 @@ class StatusPage extends Component {
         )), []);
   }
 
+  initializeRows(pageNum) {
+    const totalRows = this.flattenAgentRows(this.props.agents);
+    const page = {
+      currentPage: pageNum,
+      nbPages: Math.ceil(totalRows.length / 40)
+    };
+    this.setState({
+      rows: totalRows.slice((page.currentPage - 1) * 30, page.currentPage * 30),
+      page
+    });
+  }
+
   render() {
+    const { page, rows } = this.state;
     return (
       <div className="main">
         <SideNav />
         <AgentTable
           onRowClick={this.onRowClick.bind(this)}
-          page={{currentPage: 1, nbPages: 4}}
-          rows={this.flattenAgentRows(this.props.agents)}
+          page={page}
+          rows={rows}
+          onPageChange={this.initializeRows.bind(this)}
         />
       </div>
     );
@@ -50,8 +80,7 @@ class StatusPage extends Component {
 StatusPage.propTypes = {
   agents: PropTypes.array.isRequired,
   fetchAgents: PropTypes.func,
-  fetchEvents: PropTypes.func,
-  rows: PropTypes.array
+  fetchEvents: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({

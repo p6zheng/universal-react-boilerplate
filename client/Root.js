@@ -7,7 +7,6 @@ import EventsPage from './pages/EventsPage';
 import Footer from './components/Footer';
 
 class Root extends Component {
-
   render() {
     return (
       <div>

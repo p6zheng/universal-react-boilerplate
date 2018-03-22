@@ -1,7 +1,7 @@
 import './style.scss';
 import React from 'react';
 
-const SecondaryNav = () => (
+const SecondaryNav = ({ active }) => (
   <div className="secondary_nav">
     <div className="wrapper">
       <nav>
