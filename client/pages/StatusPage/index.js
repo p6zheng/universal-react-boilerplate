@@ -23,11 +23,13 @@ class StatusPage extends Component {
   }
 
   componentDidMount() {
-    if (this.state.rows.length === 0) {
+    if (this.props.agents.length === 0) {
       this.props.fetchAgents()
         .then(() => {
           this.initializeRows(1);
         });
+    } else {
+      this.initializeRows(1);
     }
   }
 

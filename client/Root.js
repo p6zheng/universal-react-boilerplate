@@ -7,10 +7,14 @@ import EventsPage from './pages/EventsPage';
 import Footer from './components/Footer';
 
 class Root extends Component {
+  getActiveTab() {
+    return this.props.location === "/user" ? "status": "events"
+  }
+
   render() {
     return (
       <div>
-        <SecondaryNav />
+        <SecondaryNav activeTab={this.getActiveTab()}/>
         <div className="wrapper">
           <Switch>
             <Redirect exact from='/' to='/users' />
