@@ -18,7 +18,9 @@ class StatusPage extends Component {
         currentPage: 1,
         ngPage: 1
       },
-      rows: []
+      rows: [],
+      status: "All",
+      type: "All"
     };
   }
 
@@ -38,21 +40,27 @@ class StatusPage extends Component {
     this.props.history.push(`/users/${id}/type/${type}`);
   }
 
-  flattenAgentRows(agents) {
+  getAgentRows(status, type) {
+    const { agents } = this.props;
     return agents
       .reduce((acc, agent) =>
-        acc.concat(agent.service.map(row =>
-          ({
-            agent_id: agent.id,
-            type: row.type,
-            status: row.status,
-            message: row.message
-          })
-        )), []);
+        acc.concat(
+          agent.service.map(row =>
+            ({
+              agent_id: agent.id,
+              type: row.type,
+              status: row.status,
+              message: row.message
+            })
+          )
+        ), [])
+      .filter(row =>
+        (row.status === status || status === "All")
+        && (row.type === type || type === "All"));
   }
 
-  initializeRows(pageNum) {
-    const totalRows = this.flattenAgentRows(this.props.agents);
+  initializeRows(pageNum, status, type) {
+    const totalRows = this.getAgentRows(status || this.state.status, type || this.state.type);
     const page = {
       currentPage: pageNum,
       nbPages: Math.ceil(totalRows.length / 40)
@@ -63,11 +71,30 @@ class StatusPage extends Component {
     });
   }
 
+  onStatusFilter(status) {
+    this.initializeRows(1, status, this.state.type);
+    this.setState({
+      status
+    });
+  }
+
+  onTypeFilter(type) {
+    this.initializeRows(1, this.state.status, type);
+    this.setState({
+      type
+    });
+  }
+
   render() {
-    const { page, rows } = this.state;
+    const { page, rows, status, type } = this.state;
     return (
       <div className="main">
-        <SideNav />
+        <SideNav
+          onStatusFilter={this.onStatusFilter.bind(this)}
+          onTypeFilter={this.onTypeFilter.bind(this)}
+          status={status}
+          type={type}
+        />
         <AgentTable
           onRowClick={this.onRowClick.bind(this)}
           page={page}

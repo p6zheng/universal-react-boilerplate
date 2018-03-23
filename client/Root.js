@@ -8,7 +8,7 @@ import Footer from './components/Footer';
 
 class Root extends Component {
   getActiveTab() {
-    return this.props.location === "/user" ? "status": "events"
+    return this.props.location.pathname === "/users" ? "status": "events"
   }
 
   render() {

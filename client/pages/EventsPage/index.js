@@ -13,7 +13,12 @@ class EventsPage extends Component {
   render() {
     return (
       <div className="main">
-        <SideNav/>
+        <SideNav
+          onTypeFilter={() => {}}
+          onStatusFilter={() => {}}
+          status="All"
+          type="All"
+        />
         <EventsTable
           events={this.props.events}
           page={{currentPage: 1, nbPages: 3}}

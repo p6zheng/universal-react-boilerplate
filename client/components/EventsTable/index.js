@@ -11,8 +11,8 @@ const EventsTable = ({ events, page }) => (
       onTableUpdate={() => {}}
       pagination={page}>
       <TableHeader name="id">Agent ID</TableHeader>
-      <TableHeader name="timestamp">Type</TableHeader>
       <TableHeader name="resource_type">Create Time</TableHeader>
+      <TableHeader name="timestamp">Type</TableHeader>
       <TableHeader name="resource_action">Action</TableHeader>
       <TableHeader name="payload">payload</TableHeader>
       <TableFilters showSearch searchDebounceDelay={700} onSearchSubmit={() => {}} />
